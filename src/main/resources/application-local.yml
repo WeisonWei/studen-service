@@ -1,0 +1,22 @@
+server.port: 8080
+
+spring:
+  data:
+    mongodb:
+      #      database: posService
+      #      host: localhost
+      #      port: 27017
+      database: studentService
+      host: localhost
+      port: 27018
+      username: studentService
+      password: admin
+      authentication-database: admin
+  datasource:
+    url: jdbc:mysql:123
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    username: studentService
+    password: admin
+
+#mybatis:
+#  mapper-locations: classpath:mapper/*.xml

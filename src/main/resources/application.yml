@@ -1,0 +1,47 @@
+management:
+  endpoints.web:
+    base-path: /management
+    exposure.include: '*'
+  server.port: 9090
+
+server:
+  connection-timeout: 30000ms
+  port: 8081
+  servlet.context-path: /
+
+logging:
+  path: ./
+  file: st.log
+  #max-size: 10M
+  #max-history: 1
+
+spring:
+  data:
+    mongodb:
+      #      database: posService
+      #      host: localhost
+      #      port: 27017
+      database: studentService
+      host: localhost
+      port: 27018
+      username: studentService
+      password: admin
+      authentication-database: admin
+  datasource:
+    url: jdbc:mysql://localhost:3306
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    username: studentService
+    password: admin
+
+
+sprin:
+  http:
+    encoding:
+      charset: utf-8
+      enabled: true
+      force: true
+
+master:
+  name: EvanDyml
+  sex: 男
+  subject: 语文

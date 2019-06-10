@@ -1,0 +1,92 @@
+plugins {
+    id 'org.springframework.boot' version '2.1.5.RELEASE'
+    id 'groovy'
+    id 'org.asciidoctor.convert' version '1.5.3'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.wxx.modules'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+    all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-web'
+    compile.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-jetty'
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    maven {
+        url 'http://maven.aliyun.com/nexus/content/groups/public/'
+    }
+    mavenCentral()
+}
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //非传递依赖
+    //implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    //implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    //implementation 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+    //implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
+
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1'
+
+    implementation 'org.springframework.boot:spring-boot-configuration-processor'
+    implementation 'org.springframework.boot:spring-boot-starter-reactor-netty'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+
+    //JMS
+    implementation "javax.jms:javax.jms-api:2.0"
+    implementation "org.springframework:spring-messaging"
+    implementation "org.springframework:spring-jms"
+    implementation "com.sun.messaging.mq:imq:4.6-b01"
+    implementation "com.sun.messaging.mq:jms:4.6-b01"
+
+    implementation 'com.google.guava:guava:27.0.1-jre'
+    implementation 'org.apache.commons:commons-lang3:3.8.1'
+    implementation 'org.apache.commons:commons-text:1.6'
+    implementation 'org.apache.cxf:cxf-rt-transports-http-hc:3.2.0'
+    implementation 'org.apache.cxf:cxf-rt-frontend-jaxws:3.2.0'
+    implementation 'com.sun.xml.bind:jaxb-core:2.2.11'
+    implementation 'com.sun.xml.bind:jaxb-impl:2.2.11'
+
+    implementation 'commons-lang:commons-lang:2.6'
+    implementation 'commons-collections:commons-collections:3.2.2'
+    implementation 'org.apache.commons:commons-collections4:4.3'
+    implementation 'joda-time:joda-time:2.10.1'
+    implementation 'com.graphql-java:java-dataloader:2.2.1'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1'
+    implementation group: 'com.microsoft.sqlserver', name: 'mssql-jdbc', version: '6.1.0.jre7'
+    implementation group: 'capital.scalable', name: 'spring-auto-restdocs-json-doclet', version: '2.0.4'
+
+
+    //测试时编译
+    testCompile group: 'capital.scalable', name: 'spring-auto-restdocs-core', version: '2.0.4'
+
+
+    //编译时依赖
+    compileOnly 'org.projectlombok:lombok'
+
+    //注解处理器
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    //测试时依赖
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation "org.spockframework:spock-core:1.2-groovy-2.4"
+    testImplementation 'org.mockito:mockito-core:2.24.5'
+    testImplementation 'io.projectreactor:reactor-test:3.2.6.RELEASE'
+}
