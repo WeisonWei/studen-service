@@ -1,8 +1,10 @@
 package com.wxx.modules.st.exception;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
+@EqualsAndHashCode(callSuper=false)
 public class CheckException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;

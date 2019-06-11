@@ -1,0 +1,7 @@
+teacher:
+  name: Evanmaster
+  sex: nv
+  subject: chi
+  phone: 123
+  address: HeNan
+  isMaster: true

@@ -18,6 +18,7 @@ logging:
 spring:
   data:
     mongodb:
+
       database: studentService
       host: localhost
       port: 27017
@@ -27,18 +28,10 @@ spring:
     username: studentService
     password: admin
 
-
-sprin:
-  http:
-    encoding:
-      charset: utf-8
-      enabled: true
-      force: true
 mybatis:
   mapper-locations: classpath:mapper/*.xml
 
 master:
-  name: EvanDefaultyml
+  name: EvanDevyml
   sex: nv
   subject: chi
-  phone: 120
