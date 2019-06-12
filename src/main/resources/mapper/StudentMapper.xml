@@ -2,13 +2,117 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.wxx.modules.st.mapper.StudentMapper">
-    <resultMap id="studentMap" type="com.wxx.modules.st.domain.Student">
-        <id column="order_id" property="orderId"/>
-        <result column="first_name" property="firstName"/>
 
+    <!--
+执行增加操作的SQL语句
+1.id和parameterType 分别与StudentMapper接口中的addStudent方法的名字和 参数类型一致
+2.以#{studentName}的形式引用Student参数 的studentName属性，MyBatis将使用反射读取Student参数的此属性
+3.#{studentName}中studentName大小写敏感。引用其他的属性与此一致
+4.seGeneratedKeys设置为"true"表明要MyBatis获取由数据库自动生成的主键
+5.keyProperty="id"指定把获取到的主键值注入到Student的id属性
+-->
+
+
+    <!-- 当表中字段名跟实体类字段名不一致 或 为了返回list类型 而定义的returnMap -->
+    <resultMap id="scoreResultMap" type="com.wxx.modules.st.domain.Score">
+        <id column="id" property="id"/>
+        <result column="subject" property="subject"/>
+        <result column="student_id" property="studentId"/>
+        <result column="subject_score" property="subjectScore"/>
     </resultMap>
 
-    <select id="findStudentsBystIds" resultMap="studentMap">
-        SELECT 1 FROM dual
+    <resultMap id="studentMap" type="com.wxx.modules.st.domain.Student">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="age" property="age"/>
+        <result column="sex" property="sex"/>
+        <result column="address" property="address"/>
+        <result column="citation_count" property="citationCount"/>
+    </resultMap>
+
+
+    <!--
+    联合查询场景:在读取某个用户的所有成绩
+    当然还是需要在 StudentMapper.xml 里面配置 select 语句, 但重点是这个 select 的resultMap 对应什么样的数据呢。
+    这是重点，这里要引入 association 看定义如下 这样配置之后，就可以了，将 select 语句与resultMap 对应的映射结合起来看，就明白了。
+    用 association 来 得到关联的用户，这是多对一的情况，因为所有的文章都是同一个用户的。
+    -->
+    <resultMap id="resultStudentScoreList" type="com.wxx.modules.st.domain.StudentScores">
+        <id column="id" property="id"/>
+        <result column="name" property="studentName"/>
+        <result column="phone" property="studentPhone"/>
+        <association property="scores" javaType="List">
+            <id column="id" property="id"/>
+            <result column="subject" property="subject"/>
+            <result column="student_id" property="studentId"/>
+            <result column="subject_core" property="subjectScore"/>
+        </association>
+    </resultMap>
+    <!--
+    还有另外一种处理方式，可以复用我们前面已经定义好的resultMap ,前面我们定义过一个resultListStudent,
+    看这第二种方法如何实现:将association 中对应的映射独立抽取出来，可以达到复用的目的
+    -->
+    <resultMap id="resultStudentScoreList1" type="com.wxx.modules.st.domain.StudentScores">
+        <id column="id" property="id"/>
+        <result column="student_name" property="studentName"/>
+        <result column="student_phone" property="studentPhone"/>
+        <association property="scores" javaType="List" resultMap="scoreResultMap"/>
+    </resultMap>
+
+    <!--新增-->
+
+    <insert id="addStudent" parameterType="com.wxx.modules.st.domain.Student" useGeneratedKeys="true" keyProperty="id">
+        insert into t_student(name,age,sex,phone,address,citationCount)
+        values(#{name},#{age},#{sex},#{phone},#{address},#{citationCount})
+    </insert>
+
+    <!--删除 1-->
+    <delete id="deleteByStudentName" parameterType="String">
+        delete from t_student where name=#{name}
+    </delete>
+    <!--删除 2-->
+    <delete id="deleteByStudent" parameterType="com.wxx.modules.st.domain.Student">
+        delete from t_student where name=#{name}
+    </delete>
+
+    <!--修改-->
+    <update id="updateStudent" parameterType="com.wxx.modules.st.domain.Student">
+        update t_student set
+        name = #{name},
+        phone = #{phone}
+        where name=#{name}
+    </update>
+
+    <!--查询列表:返回list的select语句，注意resultMap的值是指向前面定义好的 -->
+    <select id="findStudents" resultMap="studentMap">
+        select * from t_student
     </select>
+
+    <select id="findStudentById" parameterType="Integer" resultMap="studentMap">
+        SELECT * FROM t_student where id = #{id};
+    </select>
+
+    <!-- 利用 hashMap 传递多个参数 -->
+    <select id="findStudentByMap" parameterType="map" resultType="com.wxx.modules.st.domain.Student">
+        select * from t_student where
+        <where>
+            1=1
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="name != null and name != ''">
+                and name=#{name}
+            </if>
+        </where>
+    </select>
+
+    <!-- Mybatis 自带的多个参数传递方法 这个时候没有 parameterType, 但用到了类似 #{param1} 类似的参数 -->
+    <select id="findStudentByParams" resultType="com.wxx.modules.st.domain.Student">
+        select * from t_student where phone = #{param1} and name=#{param2}
+    </select>
+
+    <!-- 两个表关联查询 1 -->
+    <!-- 两个表关联查询 2 -->
+    <!-- 两个表关联查询 3 -->
+
 </mapper>

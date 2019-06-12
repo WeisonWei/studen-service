@@ -1,5 +1,6 @@
 package com.wxx.modules.st.router;
 
+import com.wxx.modules.st.handler.MockStudentHandler;
 import com.wxx.modules.st.handler.StudentHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,16 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 public class StudentRoutes {
 
     @Bean
+    public RouterFunction<ServerResponse> userRoutersFunctionMock(MockStudentHandler mockStudentHandler) {
+        RouterFunction<ServerResponse> serverResponse = route()
+                .GET("/mock/student/{id}", accept(APPLICATION_JSON), mockStudentHandler::getStudent)
+                .GET("/mock/student", accept(APPLICATION_JSON), mockStudentHandler::getStudentList)
+                .POST("/mock/student", mockStudentHandler::addStudent)
+                .build();
+        return serverResponse;
+    }
+
+    @Bean
     public RouterFunction<ServerResponse> userRoutersFunction(StudentHandler studentHandler) {
         RouterFunction<ServerResponse> serverResponse = route()
                 .GET("/student/{id}", accept(APPLICATION_JSON), studentHandler::getStudent)
@@ -22,7 +33,6 @@ public class StudentRoutes {
                 .build();
         return serverResponse;
     }
-
 }
 
 

@@ -1,0 +1,13 @@
+INSERT INTO `t_student` (`name`,`age`, `sex`, `phone`,  `address`,  `citation_count`) VALUES('小明',10,'男',111,'小明家',1);
+INSERT INTO `t_student` (`name`,`age`, `sex`, `phone`,  `address`,  `citation_count`) VALUES('小红',11,'男',112,'小红家',3);
+INSERT INTO `t_student` (`name`,`age`, `sex`, `phone`,  `address`,  `citation_count`) VALUES('小灰',9,'男',113,'小灰家',0);
+INSERT INTO `t_student` (`name`,`age`, `sex`, `phone`,  `address`,  `citation_count`) VALUES('小朋',8,'男',114,'小朋家',2);
+INSERT INTO `t_student_score` (`subject`, `student_id`, `subject_score`) VALUES('语文','1','30');
+INSERT INTO `t_student_score` (`subject`, `student_id`, `subject_score`) VALUES('数学','1','40');
+INSERT INTO `t_student_score` (`subject`, `student_id`, `subject_score`) VALUES('语文','2','50');
+INSERT INTO `t_student_score` (`subject`, `student_id`, `subject_score`) VALUES('数学','2','35');
+INSERT INTO `t_student_score` (`subject`, `student_id`, `subject_score`) VALUES('语文','3','50');
+INSERT INTO `t_student_score` (`subject`, `student_id`, `subject_score`) VALUES('数学','3','35');
+INSERT INTO `t_student_score` (`subject`, `student_id`, `subject_score`) VALUES('语文','4','50');
+INSERT INTO `t_student_score` (`subject`, `student_id`, `subject_score`) VALUES('数学','4','35');
+commit;
