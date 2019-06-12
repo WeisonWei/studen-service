@@ -1,24 +1,20 @@
 package com.wxx.modules.st.domain;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Student {
+public class StudentScores {
     private Integer id;
-    private String name;
-    private Integer age;
-    private String sex;
-    private String phone;
-    private String address;
-    private Integer citationCount;
+    private String studentName;
+    private String studentPhone;
+    private List<Score> scores;
 }
-
-
 

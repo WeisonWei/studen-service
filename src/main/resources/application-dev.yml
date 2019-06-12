@@ -14,24 +14,52 @@ logging:
   file: st.log
   #max-size: 10M
   #max-history: 1
+  level:
+    root: DEBUG
+    org:
+      springframework:
+        web: DEBUG
+    com:
+      wxx:
+        modules:
+          st:
+            mapper: DEBUG
 
 spring:
   data:
     mongodb:
-
       database: studentService
       host: localhost
       port: 27017
   datasource:
-    url: jdbc:mysql:localhost:3306
-    driver-class-name: com.mysql.jdbc.Driver
-    username: studentService
-    password: admin
+    # 遇到时区问题用这个
+    # jdbc:mysql://localhost:3306?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/studentService?useSSL=false&useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    # schema.sql中一般存放的是DDL脚本，即通常为创建或更新库表的脚本
+    # data.sql中一般是DML脚本，即通常为数据插入脚本
+    schema: classpath:schema.sql
+    data: classpath:data.sql
+    platform: mysql
+    initialization-mode: always
+    continue-on-error: false
+    #data-password:
+    #data-username:
+    #schema-password:
+    #schema-username:
+    sql-script-encoding: utf-8
+    separator: ;
+
+
 
 mybatis:
+  typeAliasesPackage: com.com.wxx.modules.st.domain
   mapper-locations: classpath:mapper/*.xml
 
 master:
   name: EvanDevyml
   sex: nv
   subject: chi
+  phone: 111

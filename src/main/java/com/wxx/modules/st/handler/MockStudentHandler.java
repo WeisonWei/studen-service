@@ -1,7 +1,7 @@
 package com.wxx.modules.st.handler;
 
 import com.wxx.modules.st.domain.Student;
-import com.wxx.modules.st.service.StudentService;
+import com.wxx.modules.st.service.MockStudentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,9 +13,9 @@ import reactor.core.publisher.Mono;
 
 @Component
 @Slf4j
-public class StudentHandler {
+public class MockStudentHandler {
     @Autowired
-    StudentService studentService;
+    MockStudentService studentService;
 
     public Mono<ServerResponse> getStudentList(ServerRequest request) {
         Flux<Student> StudentFlux = studentService.findStudentList();
@@ -27,7 +27,7 @@ public class StudentHandler {
     }
 
     public Mono<ServerResponse> getStudent(ServerRequest request) {
-        Integer StudentId = Integer.valueOf(request.pathVariable("id"));
+        String StudentId = request.pathVariable("id");
         Mono<Student> StudentMono = studentService.findStudentById(StudentId);
         StudentMono.flatMap(Student -> {
             log.info(Student.toString());
