@@ -51,12 +51,22 @@ spring:
     #schema-username:
     sql-script-encoding: utf-8
     separator: ;
+    type: com.alibaba.druid.pool.DruidDataSource
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 
 
 
 mybatis:
-  typeAliasesPackage: com.com.wxx.modules.st.domain
   mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.com.wxx.modules.st.domain
+  # config-location:
+  configuration:
+    cache-enabled: true
+
 
 master:
   name: EvanDevyml
