@@ -47,11 +47,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-aop'
 
     //JMS
-    //implementation "javax.jms:javax.jms-api:2.0"
-    //implementation "org.springframework:spring-messaging"
-    //implementation "org.springframework:spring-jms"
-    //implementation "com.sun.messaging.mq:imq:4.6-b01"
-    //implementation "com.sun.messaging.mq:jms:4.6-b01"
+    implementation "javax.jms:javax.jms-api:2.0"
+    implementation "org.springframework:spring-messaging"
+    implementation "org.springframework:spring-jms"
+    implementation "com.sun.messaging.mq:imq:4.6-b01"
+    implementation "com.sun.messaging.mq:jms:4.6-b01"
     implementation 'org.springframework.boot:spring-boot-starter-amqp'
     //implementation 'com.rabbitmq:amqp-client:5.7.1'
 
