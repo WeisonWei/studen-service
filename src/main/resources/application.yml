@@ -56,3 +56,9 @@ master:
   name: EvanDevyml
   sex: nv
   subject: chi
+
+destination:
+  topic: st.student.update
+
+openmq:
+  brokerIpAddressList: localhost:7676,localhost:7677

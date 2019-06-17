@@ -1,6 +1,7 @@
 package com.wxx.modules.st.handler;
 
 import com.wxx.modules.st.domain.Student;
+import com.wxx.modules.st.openmq.TopicPublisherHandler;
 import com.wxx.modules.st.service.StudentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,12 @@ import reactor.core.publisher.Mono;
 @Component
 @Slf4j
 public class StudentHandler {
+
     @Autowired
     StudentService studentService;
+
+    @Autowired
+    TopicPublisherHandler topicPublisherHandler;
 
     public Mono<ServerResponse> getStudentList(ServerRequest request) {
         Flux<Student> StudentFlux = studentService.findStudentList();
@@ -40,6 +45,12 @@ public class StudentHandler {
         Mono<Student> StudentMono = request.bodyToMono(Student.class);
         Mono<Student> StudentMonoResult = studentService.addStudent(StudentMono);
         return ServerResponse.ok().body(StudentMonoResult, Student.class);
+    }
+
+    public Mono<ServerResponse> syncStudentUpdate(ServerRequest request) {
+        Mono<Student> StudentMono = request.bodyToMono(Student.class);
+        Mono<String> resultMono = topicPublisherHandler.sendMessage(StudentMono);
+        return ServerResponse.ok().body(resultMono, String.class);
     }
 }
  

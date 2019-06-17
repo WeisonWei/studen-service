@@ -30,6 +30,7 @@ public class StudentRoutes {
                 .GET("/student/{id}", accept(APPLICATION_JSON), studentHandler::getStudent)
                 .GET("/student", accept(APPLICATION_JSON), studentHandler::getStudentList)
                 .POST("/student", studentHandler::addStudent)
+                .POST("/student/mq", studentHandler::syncStudentUpdate)
                 .build();
         return serverResponse;
     }

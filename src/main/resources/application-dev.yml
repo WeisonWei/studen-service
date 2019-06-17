@@ -73,3 +73,10 @@ master:
   sex: nv
   subject: chi
   phone: 111
+
+destination:
+  topic: st.student.update
+
+
+openmq:
+  brokerIpAddressList: localhost:7676,localhost:7677
