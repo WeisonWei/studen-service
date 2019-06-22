@@ -2,7 +2,7 @@ management:
   endpoints.web:
     base-path: /management
     exposure.include: '*'
-  server.port: 9090
+  server.port: 9091
 
 server:
   connection-timeout: 30000ms
@@ -15,10 +15,10 @@ logging:
   #max-size: 10M
   #max-history: 1
   level:
-    root: DEBUG
+    root: INFO
     org:
       springframework:
-        web: DEBUG
+        web: INFO
     com:
       wxx:
         modules:
@@ -37,7 +37,7 @@ spring:
     url: jdbc:mysql://localhost:3306/studentService?useSSL=false&useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: root
+    password: 12345678
     # schema.sql中一般存放的是DDL脚本，即通常为创建或更新库表的脚本
     # data.sql中一般是DML脚本，即通常为数据插入脚本
     schema: classpath:schema.sql
@@ -59,7 +59,6 @@ spring:
     password: guest
 
 
-
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.com.wxx.modules.st.domain
@@ -73,6 +72,8 @@ master:
   sex: nv
   subject: chi
   phone: 111
+  address: road1
+
 
 destination:
   topic: st.student.update
@@ -80,3 +81,9 @@ destination:
 
 openmq:
   brokerIpAddressList: localhost:7676,localhost:7677
+  queue:
+    stQueue:
+      name: stNotificationQueue
+  topic:
+    stTopic:
+      name: st.notification.topic

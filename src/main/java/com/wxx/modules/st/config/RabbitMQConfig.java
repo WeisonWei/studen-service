@@ -14,13 +14,13 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMQConfig {
 
     //topic
-    public static final String TOPIC_QUEUE1 = "wxx.tp.q1";
-    public static final String TOPIC_QUEUE2 = "wxx.tp.q2";
-    public static final String TOPIC_QUEUE3 = "wxx.tp.q3";
+    public static final String TOPIC_QUEUE1 = "st.topic.t1";
+    public static final String TOPIC_QUEUE2 = "st.topic.t2";
+    public static final String TOPIC_QUEUE3 = "st.topic.t3";
 
-    public static final String TOPIC_EXECHANGE = "wxx.tp.exechange";
+    public static final String TOPIC_EXECHANGE = "st.topic.exchange";
 
-    public static final String ROUTING_KEY = "wxx.tp";
+    public static final String ROUTING_KEY = "st.tp";
 
 
     @Bean

@@ -15,10 +15,16 @@ logging:
   #max-size: 10M
   #max-history: 1
   level:
+    root: INFO
+    org:
+      springframework:
+        web: INFO
     com:
       wxx:
         modules:
-          mapper: debug
+          st:
+            mapper: DEBUG
+
 spring:
   data:
     mongodb:
@@ -28,7 +34,7 @@ spring:
   datasource:
     # 遇到时区问题用这个
     # jdbc:mysql://localhost:3306?useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-    url: jdbc:mysql://localhost:3306/studentService?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/studentService?useSSL=false&useUnicode=true&characterEncoding=UTF-8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root
@@ -45,20 +51,33 @@ spring:
     #schema-username:
     sql-script-encoding: utf-8
     separator: ;
+    type: com.alibaba.druid.pool.DruidDataSource
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 
 
 
 mybatis:
-  typeAliasesPackage: com.com.wxx.modules.st.domain
   mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.com.wxx.modules.st.domain
+  # config-location:
+  configuration:
+    cache-enabled: true
 
 master:
   name: EvanDevyml
   sex: nv
   subject: chi
-
-destination:
-  topic: st.student.update
+  address: road1
 
 openmq:
   brokerIpAddressList: localhost:7676,localhost:7677
+  queue:
+    stQueue:
+      name: stNotificationQueue
+  topic:
+    stTopic:
+      name: st.notification.topic

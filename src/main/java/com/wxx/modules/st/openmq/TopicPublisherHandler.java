@@ -19,7 +19,7 @@ public class TopicPublisherHandler {
     @Qualifier(TOPIC_JMSTEMPLATE)
     JmsTemplate jmsTemplate;
 
-    @Value("${destination.topic}")
+    @Value("${openmq.topic.stTopic.name}")
     private String topicDestination;
 
     public Mono<String> sendMessage(Mono<Student> student) {

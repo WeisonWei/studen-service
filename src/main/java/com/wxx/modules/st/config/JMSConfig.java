@@ -1,5 +1,7 @@
 package com.wxx.modules.st.config;
 
+import javax.jms.ConnectionFactory;
+import javax.jms.TopicConnectionFactory;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,9 +12,6 @@ import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.config.JmsListenerContainerFactory;
 import org.springframework.jms.connection.CachingConnectionFactory;
 import org.springframework.jms.core.JmsTemplate;
-
-import javax.jms.ConnectionFactory;
-import javax.jms.TopicConnectionFactory;
 
 
 @Slf4j
@@ -32,7 +31,7 @@ public class JMSConfig {
 
     private ConnectionFactory connectionFactory() {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
-        //connectionFactory.setTargetConnectionFactory(createConnectionFactory(openMqAddressList));
+        connectionFactory.setTargetConnectionFactory(createConnectionFactory(openMqAddressList));
         connectionFactory.setSessionCacheSize(5);
         connectionFactory.setCacheProducers(false);
         connectionFactory.setCacheConsumers(false);
@@ -75,6 +74,18 @@ public class JMSConfig {
         JmsTemplate jmsTemplate = new JmsTemplate(jmsTopicProducerContainerFactory());
         jmsTemplate.setPubSubDomain(true);
         return jmsTemplate;
+    }
+
+    public static com.sun.messaging.ConnectionFactory createConnectionFactory(String imqAddressList) {
+        com.sun.messaging.ConnectionFactory connectionFactory = new com.sun.messaging.ConnectionFactory();
+        try {
+            connectionFactory.setProperty(com.sun.messaging.ConnectionConfiguration.imqAddressList, imqAddressList);
+            connectionFactory.setProperty(com.sun.messaging.ConnectionConfiguration.imqReconnectEnabled, "true");
+            return connectionFactory;
+        } catch (Exception e) {
+            log.error("create jms connect error: \r\n" + e.getMessage(), e);
+        }
+        return null;
     }
 
 

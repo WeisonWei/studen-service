@@ -18,13 +18,7 @@ public class InitRedisData implements CommandLineRunner {
     MasterByDefaultYml masterByDefaultYml;
 
     @Autowired
-    MasterByDevProperties masterByDevProperties;
-
-    @Autowired
     MasterByDevYml masterByDevYml;
-
-    @Autowired
-    MasterByMasterYml masterByMasterYml;
 
     @Autowired
     private Environment env;
@@ -40,9 +34,7 @@ public class InitRedisData implements CommandLineRunner {
     public void run(String... args) throws Exception {
         log.info("the masterByDefaultProperties is :" + masterByDefaultProperties.toString());
         log.info("the masterByDefaultYml is :" + masterByDefaultYml.toString());
-        log.info("the masterByDevProperties is :" + masterByDevProperties.toString());
         log.info("the masterByDevYml is :" + masterByDevYml.toString());
-        log.info("the masterByMasterYml is :" + masterByMasterYml.toString());
         log.info("在这个方法里可以初始化数据，加载数据到redis");
     }
 }

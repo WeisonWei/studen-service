@@ -16,10 +16,10 @@ public class DruidDBConfig {
     @Bean(name = "dataSource")
     public DruidDataSource dataSource() {
         DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setUrl(env.getProperty("ms.db.url"));
-        dataSource.setDriverClassName(env.getProperty("ms.db.driverClassName"));
-        dataSource.setPassword(env.getProperty("ms.db.password"));
-        dataSource.setUsername(env.getProperty("ms.db.username"));
+        dataSource.setUrl(env.getProperty("spring.datasource.url"));
+        dataSource.setDriverClassName(env.getProperty("spring.datasource.driver-class-name"));
+        dataSource.setPassword(env.getProperty("spring.datasource.url.password"));
+        dataSource.setUsername(env.getProperty("spring.datasource.url.username"));
         //执行前看连接是否可用
         dataSource.setTestOnBorrow(true);
         return dataSource;

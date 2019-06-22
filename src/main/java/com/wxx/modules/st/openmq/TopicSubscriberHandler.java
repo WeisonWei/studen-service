@@ -21,13 +21,13 @@ public class TopicSubscriberHandler {
         return latch;
     }
 
-    @JmsListener(destination = "${destination.topic}", containerFactory = TOPIC_LISTENER_CONTAINER_FACTORY)
+    @JmsListener(destination = "${openmq.topic.stTopic.name}", containerFactory = TOPIC_LISTENER_CONTAINER_FACTORY)
     public void receive1(Student message) {
         log.info("'subscriber1' received message='{}'", message);
         latch.countDown();
     }
 
-    @JmsListener(destination = "${destination.topic}", containerFactory = TOPIC_LISTENER_CONTAINER_FACTORY)
+    @JmsListener(destination = "${openmq.topic.stTopic.name}", containerFactory = TOPIC_LISTENER_CONTAINER_FACTORY)
     public void receive2(Student message) {
         log.info("'subscriber2' received message='{}'", message);
         latch.countDown();
